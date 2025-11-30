@@ -1,0 +1,37 @@
+.sell-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+.sell-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.sell-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sell-card input {
+    padding: 0.75rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+}
+
+.image-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.message {
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: #D1FAE5;
+    color: #10B981;
+}

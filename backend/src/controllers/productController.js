@@ -10,7 +10,6 @@ export async function createProduct(req, res) {
     try {
         let files = [];
 
-        // Accept both single & multiple files
         if (req.files?.length > 0) {
             files = req.files;
         } else if (req.file) {
@@ -70,8 +69,14 @@ export async function getProductsOfSeller(req, res) {
 
 
 export async function getProducts(req, res) {
-    const page = parseInt(req.query.page)
-    const limit = parseInt(req.query.limit)
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 10
     const products = await prisma.product.findMany({ take: limit, skip: (page - 1) * limit })
     return res.status(200).json({ products });
+}
+
+export async function deleteProduct(req, res) {
+    const { id } = req.params;
+    await prisma.product.delete({ where: { id: parseInt(id) } });
+    res.json({ message: 'Product deleted' });
 }

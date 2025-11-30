@@ -1,14 +1,12 @@
-import express from 'express';
-import { createProduct, getProducts, getProductsOfSeller } from '../controllers/productController.js';
-import { upload } from '../middlewares/multer.js';
-import { authenticateToken } from '../middlewares/authMiddleware.js';
+import express from "express";
+import { authenticateToken } from "../middlewares/authMiddleware.js";
+import { getProductsOfSeller, getProducts, deleteProduct } from "../controllers/productController.js";
 
 const router = express.Router();
-router
-    .post("/", authenticateToken, upload.array("images", 10), createProduct)
-    .get("/", getProducts)
-router.get("/:userId", authenticateToken, getProductsOfSeller);
 
+router.get("/", getProducts)
 
+router.get("/mine", authenticateToken, getProductsOfSeller);
+router.delete("/:id", authenticateToken, deleteProduct);
 
 export default router;
