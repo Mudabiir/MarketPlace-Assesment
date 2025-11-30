@@ -13,7 +13,7 @@ export async function signup(req, res) {
 // then call prisma.user.create...
     res.status(201).json({ id: user.id, email: user.email, name: user.name, phoneNumber: user.phoneNumber });
   } catch (err) {
-    console.error("Signup error:", err); // <--- log error here!
+    console.error("Signup error:", err); 
     if (err.code === "P2002" && err.meta?.target?.includes("email")) {
       res.status(400).json({ error: "Email already exists" });
     } else {
