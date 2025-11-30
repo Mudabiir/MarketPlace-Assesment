@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { productAPI } from '../utils/api';
-import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Upload, X } from 'lucide-react';
 import './Sell.css';
 
 export default function Sell() {
@@ -138,7 +138,12 @@ export default function Sell() {
                         <div className="preview-grid">
                             {previews.map((url, index) => (
                                 <div key={index} className="preview-item">
-                                    <img src={url} alt={`Preview ${index}`} />
+                                    <img
+                                        src={url}
+                                        alt={`Preview ${index}`}
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
                                     <button
                                         type="button"
                                         className="remove-btn"

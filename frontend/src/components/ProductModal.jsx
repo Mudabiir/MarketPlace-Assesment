@@ -31,6 +31,8 @@ export default function ProductModal({ product, onClose }) {
                     <img
                         src={product.imageUrls[currentImageIndex]}
                         alt={product.name}
+                        loading="lazy"
+                        decoding="async"
                     />
 
                     {product.imageUrls.length > 1 && (
