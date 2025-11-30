@@ -57,23 +57,64 @@ export async function createProduct(req, res) {
 
 export async function getProductsOfSeller(req, res) {
     const userId = req.user.userId;
-    console.log(userId)
     const page = parseInt(req.query.page) || 1
-    const limit = parseInt(req.query.limit) || 10
+    const limit = parseInt(req.query.limit) || 5
+
     if (!userId) {
-        return res.status(404).json({ error: "user with id not found" });
+        return res.status(404).json({ error: "User not found" });
     }
-    const products = await prisma.product.findMany({ where: { sellerId: userId }, take: limit, skip: (page - 1) * limit })
-    return res.status(200).json({ products });
+
+    try {
+        const products = await prisma.product.findMany({
+            where: { sellerId: userId },
+            take: limit,
+            skip: (page - 1) * limit,
+            include: {
+                seller: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        phoneNumber: true
+                    }
+                }
+            }
+        });
+
+        return res.status(200).json({ products });
+    } catch (err) {
+        console.error("Get seller products error:", err);
+        return res.status(500).json({ error: "Failed to fetch products" });
+    }
 }
 
 
 
 export async function getProducts(req, res) {
     const page = parseInt(req.query.page) || 1
-    const limit = parseInt(req.query.limit) || 10
-    const products = await prisma.product.findMany({ take: limit, skip: (page - 1) * limit })
-    return res.status(200).json({ products });
+    const limit = parseInt(req.query.limit) || 5
+
+    try {
+        const products = await prisma.product.findMany({
+            take: limit,
+            skip: (page - 1) * limit,
+            include: {
+                seller: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        phoneNumber: true
+                    }
+                }
+            }
+        });
+
+        return res.status(200).json({ products });
+    } catch (err) {
+        console.error("Get products error:", err);
+        return res.status(500).json({ error: "Failed to fetch products" });
+    }
 }
 
 export async function deleteProduct(req, res) {

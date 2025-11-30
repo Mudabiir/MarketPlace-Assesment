@@ -20,14 +20,11 @@ export const authAPI = {
 };
 
 export const productAPI = {
-    // Get all products with pagination
-    getAll: (page = 1, limit = 10) => api.get(`/products?page=${page}&limit=${limit}`),
+    getAll: (page = 1, limit = 5) => api.get(`/products?page=${page}&limit=${limit}`),
     getById: (id) => api.get(`/products/${id}`),
 
-    // Get current user's products - backend will use authenticated user from token
-    getMine: (page = 1, limit = 10) => api.get(`/products/mine?page=${page}&limit=${limit}`),
+    getMine: (page = 1, limit = 5) => api.get(`/products/mine?page=${page}&limit=${limit}`),
 
-    // Create product - send as JSON (backend expects imageUrls array)
     create: (data) => api.post('/products', data),
 
     delete: (id) => api.delete(`/products/${id}`),

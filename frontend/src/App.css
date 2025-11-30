@@ -6,6 +6,6 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #F9FAFB;
-  color: #111827;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
