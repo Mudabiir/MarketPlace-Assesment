@@ -11,7 +11,7 @@ export default function ProductModal({ product, onClose }) {
                     ))}
                 </div>
                 <h2>{product.name}</h2>
-                <p className="modal-price">${product.price}</p>
+                <p className="modal-price">Rs{product.price}</p>
                 <div className="seller-info">
                     <h3>Seller Information</h3>
                     <p><strong>Name:</strong> {product.seller?.name}</p>
