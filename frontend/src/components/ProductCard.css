@@ -73,3 +73,26 @@
     white-space: nowrap;
     text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .product-card img {
+        height: 180px;
+    }
+
+    .card-info {
+        padding: 1rem;
+    }
+
+    .product-card h3 {
+        font-size: 0.9375rem;
+    }
+
+    .product-card .price {
+        font-size: 1rem;
+    }
+}
