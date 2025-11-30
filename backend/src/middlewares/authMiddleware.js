@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
 
 export function authenticateToken(req, res, next) {
-  const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(" ")[1]; // format: "Bearer TOKEN"
+  const token = req.cookies?.accesstoken || req.header("Authorization")?.replace("Bearer", "")
   if (!token) return res.sendStatus(401);
+  console.log(token);
+
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);

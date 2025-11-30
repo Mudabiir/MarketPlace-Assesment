@@ -2,6 +2,14 @@ import prisma from '../utils/prisma.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+
+
+const options = {
+  httpOnly: true,
+  secure: true,
+}
+
+
 export async function signup(req, res) {
   const { email, password, name, phoneNumber } = req.body;
   try {
@@ -10,10 +18,10 @@ export async function signup(req, res) {
       data: { email, passwordHash, name, phoneNumber }
     });
     console.log('Signup data:', { email, passwordHash, name, phoneNumber });
-// then call prisma.user.create...
+    // then call prisma.user.create...
     res.status(201).json({ id: user.id, email: user.email, name: user.name, phoneNumber: user.phoneNumber });
   } catch (err) {
-    console.error("Signup error:", err); 
+    console.error("Signup error:", err); // <--- log error here!
     if (err.code === "P2002" && err.meta?.target?.includes("email")) {
       res.status(400).json({ error: "Email already exists" });
     } else {
@@ -38,5 +46,9 @@ export async function login(req, res) {
     process.env.JWT_SECRET,
     { expiresIn: "1d" }
   );
-  res.json({ token, user: { id: user.id, email: user.email, name: user.name, phoneNumber: user.phoneNumber } });
+
+  res
+    .status(200)
+    .cookie("token", token, options)
+    .json({ token, user: { id: user.id, email: user.email, name: user.name, phoneNumber: user.phoneNumber } });
 }
